@@ -1,4 +1,4 @@
-console.log ("Sesion 05. Ejercicio 01: Geometrias.");
+console.log ("Jueves 3. Ejercicio Sol");
 console.log(THREE);
 
 
