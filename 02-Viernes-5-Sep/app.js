@@ -1,4 +1,4 @@
-console.log ("Sesion 05. Ejercicio 01: Geometrias.");
+console.log ("Viernes 04. Ejercicio Árbol.");
 console.log(THREE);
 
 
@@ -12,6 +12,7 @@ canvas.height = window.innerHeight;
 
 //Escena
 const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x090028); // tu azul pino
 //Cámara
 //const camera = new THREE.Camera(fov, SVGPreserveAspectRatio, NodeIterator,far);
 const camera = new THREE.PerspectiveCamera(45, window.innerWidth/window.innerHeight, 0.1, 1000);
@@ -33,8 +34,32 @@ const material = new THREE.MeshPhongMaterial(
 );
 
 const madera = new THREE.MeshPhongMaterial(
-   {flatShading: true, specular: "#ffffff", shininess: 100, color: "#511607"}
+   {flatShading: true}
 );
+
+const textureLoader = new THREE.TextureLoader();
+var matcapMaterial;
+var matcapMap = textureLoader.load(
+   // Textura URL
+   './textura/madera01.jpg',
+   // on Load callback
+   function (texture) {
+       matcapMaterial = new THREE.MeshPhongMaterial( { map: matcapMap} );
+       // Mesh.
+       const mesh6 = new THREE.Mesh(geometry06, matcapMaterial);
+        scene.add(mesh6);
+        mesh6.position.z = -10;
+        mesh6.position.y = -1;
+       
+       // 4. Activar animación.
+       animate();
+   },
+   // on Progress (no funciona por ahora)
+   undefined,
+   // on Error callback
+   function (error) { console.error("Algo salio mal con la textura,", error); }
+);
+
 
 const mesh = new THREE.Mesh(geometry01, material);
 scene.add(mesh);
@@ -63,11 +88,6 @@ mesh5.position.z = -10;
 mesh5.position.y = 0.5;
 
 
-const mesh6 = new THREE.Mesh(geometry06, madera);
-scene.add(mesh6);
-mesh6.position.z = -10;
-mesh6.position.y = -1;
-
 
 //Render {}-> objeto, llamar al constructor en este caso canvas
 const renderer = new THREE.WebGLRenderer({canvas: canvas});
@@ -83,17 +103,17 @@ function animate() {
 }
 animate();
 
-const topLight = new THREE.PointLight("#ffbb66", 100, 100); // luz cálida
+
+const topLight = new THREE.PointLight("#0a1fa5ff", 100, 100);
 topLight.position.y = 5;
 scene.add(topLight);
 
-const frontLight = new THREE.PointLight("#ffd580", 10, 100); // luz cálida secundaria
-frontLight.position.set(3, 1, 3);
+const frontLight = new THREE.PointLight("#ffffffff", 10, 100);
+frontLight.position.set(-10,1,3);
 scene.add(frontLight);
 
 // Luz ambiental cálida y suave
-const ambientLight = new THREE.AmbientLight("#ffe0b2", 0.4); // color cálido, intensidad baja
+const ambientLight = new THREE.AmbientLight("#09249b", 0.4); // color cálido, intensidad baja
 scene.add(ambientLight);
-
 
 
