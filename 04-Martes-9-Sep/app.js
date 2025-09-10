@@ -18,7 +18,7 @@ const ctx = canvas.getContext('2d');
   const lines = [];   // Arreglo para guardar propiedades de cada línea
 
 // Generamos líneas horizontales
-  for (let y = 0; y <= height; y += distancia) {
+ for (let y = 0; y <= height; y += distancia) {
     lines.push({
       y: y,
       offset: Math.random() * Math.PI * 2, // desfase de tiempo único
