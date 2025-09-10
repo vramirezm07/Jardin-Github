@@ -14,19 +14,22 @@ const ctx = canvas.getContext('2d');
 
   const width = canvas.width;
   const height = canvas.height;
-  var distancia = 10;
+  const distancia = 10;
+  const margin = 100; 
   const lines = [];   // Arreglo para guardar propiedades de cada línea
 
-// Generamos líneas horizontales
- for (let y = 0; y <= height; y += distancia) {
-    lines.push({
-      y: y,
-      offset: Math.random() * Math.PI * 2, // desfase de tiempo único
-      color: `hsl(${Math.random() * 220}, 3%, 60%)`,
-      amplitude: Math.random() * 10 + 5,
-      speed: Math.random() * 0.01
-    });
+//líneas horizontales
+ for (let y = margin; y <= height - margin; y += distancia) {
+      lines.push({
+        y: y,
+        offset: Math.random() * Math.PI * 2, // desfase de tiempo único
+        color: `hsl(${Math.random() * 220}, 3%, 60%)`,
+        amplitude: Math.random() * 10 + 5,
+        speed: Math.random() * 0.01
+      });
   }
+
+
 
   function draw(t) {
     ctx.clearRect(0, 0, width, height);
@@ -34,11 +37,14 @@ const ctx = canvas.getContext('2d');
 
     for (let line of lines) {
       const wave = Math.sin(t * line.speed + line.offset) * line.amplitude;
+      const wave2 = Math.cos(t * line.speed + line.offset) * line.amplitude;
+
 
       ctx.beginPath();
       ctx.strokeStyle = line.color;
       ctx.moveTo(0, line.y + wave);
       ctx.lineTo(width, line.y + wave);
+
       ctx.stroke();
     }
 
