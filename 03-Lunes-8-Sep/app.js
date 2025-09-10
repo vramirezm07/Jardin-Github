@@ -12,17 +12,17 @@ canvas.height=window.innerHeight;
 const ctx = canvas.getContext('2d'); 
 
 //Linea referencia
-ctx.beginPath();
-ctx.lineWidth = 2;
-ctx.strokeStyle = "red";
-ctx.moveTo(canvas.width/2,0); //punto inicial
-ctx.lineTo(canvas.width/2,canvas.height); //punto final
+//ctx.beginPath();
+//ctx.lineWidth = 2;
+//ctx.strokeStyle = "red";
+//ctx.moveTo(canvas.width/2,0); //punto inicial
+//ctx.lineTo(canvas.width/2,canvas.height); //punto final
 
-ctx.moveTo(0,canvas.height/2);
-ctx.lineTo(canvas.width,canvas.height/2);
+//ctx.moveTo(0,canvas.height/2);
+//ctx.lineTo(canvas.width,canvas.height/2);
 
-ctx.stroke();
-ctx.closePath();
+//ctx.stroke();
+//ctx.closePath();
 
 
 // Barba
