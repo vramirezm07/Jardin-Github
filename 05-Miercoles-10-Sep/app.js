@@ -23,32 +23,59 @@ const margin = 100;
 const lines = [];
 const numPoints = 100; 
 
-const geometry3 = new THREE.BoxGeometry( 22, 22, 22 ); 
-const material3 = new THREE.MeshBasicMaterial( {color: 0xfffff} ); 
-const cube = new THREE.Mesh( geometry3, material3 ); 
-scene.add( cube );
+const geometry3 = new THREE.BoxGeometry( 50, 50, 50 ); 
+const material3 = new THREE.MeshNormalMaterial(
+   {flatShading: true});
+const cube2 = new THREE.Mesh( geometry3, material3 ); 
+scene.add( cube2 );
+
+const textureLoader = new THREE.TextureLoader();
+textureLoader.load(
+  './textura/reflejo_verde.png',
+  function (texture) {
+      matcapMaterial = new THREE.MeshMatcapMaterial({ matcap: texture });
+      mesh = new THREE.Mesh(geometry3, matcapMaterial);
+      scene.add(mesh);
+
+      // Si quieres que rote, agrégalo al animate:
+      function animate() {
+          let elapsed = clock.getElapsedTime();
+          // ...animación de líneas...
+
+          mesh.rotation.x += 0.01;
+          mesh.rotation.y += 0.01;
+
+          renderer.render(scene, camera);
+          requestAnimationFrame(animate);
+      }
+      animate();
+  },
+  undefined,
+  function (error) { console.error("Algo salio mal con la textura,", error); }
+);
 
 // 4. Crear líneas horizontales
-for (let y = margin; y <= height - margin; y += distancia) {
-    const points = [];
-    for (let i = 0; i < numPoints; i++) {
+ for (let y = margin; y <= height - margin; y += distancia) {
+      const points = [];
+      for (let i = 0; i < numPoints; i++) {
         const x = (i / (numPoints - 1)) * width - width / 2;
         points.push(new THREE.Vector3(x, y - height / 2, 0));
-    }
-    const geometry = new THREE.BufferGeometry().setFromPoints(points);
-    const color = new THREE.Color(`hsl(${Math.random() * 220}, 3%, 60%)`);
-    const material = new THREE.LineBasicMaterial({ color: color });
-    const line = new THREE.Line(geometry, material);
+      }
 
-    // Guarda propiedades para animar
-    lines.push({
+      const geometry = new THREE.BufferGeometry().setFromPoints(points);
+      const color = new THREE.Color(`hsl(${Math.random() * 220}, 3%, 60%)`);
+      const material = new THREE.LineBasicMaterial({ color: color });
+      const line = new THREE.Line(geometry, material);
+
+      // Guarda propiedades para animar
+      lines.push({
         mesh: line,
         geometry: geometry,
-        baseY: y - height / 2, // <-- Guarda la Y original
-        offset: Math.random() * Math.PI * 2, // Desfase para animación
-        amplitude: Math.random() * 40 + 20,  // Qué tanto sube/baja cada línea
-        speed: Math.random() * 0.001 + 0.001 // Velocidad diferente para cada línea
-    });
+        baseY: y - height / 2, 
+        offset: Math.random() * Math.PI * 2, 
+        amplitude: Math.random() * 40 + 20,  
+        speed: Math.random() * 0.5 + 0.5 // velocidad en Hz
+      });
 
     scene.add(line);
 
@@ -58,22 +85,32 @@ for (let y = margin; y <= height - margin; y += distancia) {
   scene.add( cube );
 }
 
-// 5. Animación
-function animate(t) {
+const clock = new THREE.Clock();
+
+function animate() {
+  
+  let elapsed = clock.getElapsedTime(); // segundos desde inicio
     for (let line of lines) {
         const positions = line.geometry.attributes.position.array;
-        // Calcula el desplazamiento vertical para toda la línea
-        const desplazamiento = Math.sin(t * line.speed + line.offset) * line.amplitude;
-        for (let i = 0; i < numPoints; i++) {
-            const x = (i / (numPoints - 1)) * width - width / 2;
-            positions[i * 3] = x;
-            positions[i * 3 + 1] = line.baseY + desplazamiento + Math.sin(t * line.speed + line.offset + i * 0.2)* line.amplitude;
-        }
-        line.geometry.attributes.position.needsUpdate = true;
-    }
+        const desplazamiento =
+          Math.sin(elapsed * line.speed + line.offset) * line.amplitude;
 
-    cube.rotation.x += 0.01;
-    cube.rotation.y += 0.01;
+        for (let i = 0; i < numPoints; i++) {
+          const x = (i / (numPoints - 1)) * width - width / 2;
+          positions[i * 3] = x;
+          positions[i * 3 + 1] =
+            line.baseY +
+            desplazamiento +
+            Math.sin(elapsed * line.speed + line.offset + i * 0.2) *
+              line.amplitude;
+        }
+
+        line.geometry.attributes.position.needsUpdate = true;
+        line.geometry.computeBoundingSphere(); // evita NaN
+      }
+
+    cube2.rotation.x += 0.01;
+    cube2.rotation.y += 0.01;
 
 
     renderer.render(scene, camera);
