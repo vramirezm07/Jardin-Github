@@ -12,44 +12,46 @@ canvas.height=window.innerHeight;
 const ctx = canvas.getContext('2d'); 
 
 
-  const width = canvas.width;
-  const height = canvas.height;
-  const distancia = 10;
-  const margin = 100; 
-  const lines = [];   // Arreglo para guardar propiedades de cada línea
+function draw() {
 
-//líneas horizontales
- for (let y = margin; y <= height - margin; y += distancia) {
-      lines.push({
+  const n = 5; // cantidad de bloques por lado
+  const sy = canvas.height / n;
+  const sx = canvas.width / n;
+  const nl = 12; // número de líneas por bloque
 
-        y: y,
-        offset: Math.random() * Math.PI * 2, // desfase de tiempo único
-        color: `hsl(${Math.random() * 220}, 3%, 60%)`,
-        amplitude: Math.random() * 10 + 5,
-        speed: Math.random() * 0.01
-      });
-  }
+  for (let x = 0; x < n; x++) {
+    for (let y = 0; y < n; y++) {
+      const px = x * sx;
+      const py = y * sy;
 
-
-
-  function draw(t) {
-    ctx.clearRect(0, 0, width, height);
-    ctx.lineWidth = Math.random();
-
-    for (let line of lines) {
-      const wave = Math.sin(t * line.speed + line.offset) * line.amplitude;
-      const wave2 = Math.cos(t * line.speed + line.offset) * line.amplitude;
-
-
-      ctx.beginPath();
-      ctx.strokeStyle = line.color;
-      ctx.moveTo(0, line.y + wave);
-      ctx.lineTo(width, line.y + wave);
-
-      ctx.stroke();
+      // alterna orientación
+      if ((x + y) % 2 === 0) {
+        // Líneas verticales
+        const lx = sx / nl;
+        ctx.strokeStyle = "white";
+        ctx.lineWidth = 5;
+        for (let i = 0; i < nl; i++) {
+          ctx.beginPath();
+          const offset = Math.sin(i * 0.4 + y) * 6;
+          ctx.moveTo(px + i * lx + offset , py);
+          ctx.lineTo(px + i * lx - offset, py + sy);
+          ctx.stroke();
+        }
+      } else {
+        // Líneas horizontales
+        const ly = sy / nl;
+        ctx.strokeStyle = "white";
+        ctx.lineWidth = 5;
+        for (let i = 0; i < nl; i++) {
+          ctx.beginPath();
+          const offset = Math.cos(i * 0.4 + x) * 6; // ondulación
+          ctx.moveTo(px, py + i * ly + offset);
+          ctx.lineTo(px + sx, py + i * ly - offset);
+          ctx.stroke();
+        }
+      }
     }
-
-    requestAnimationFrame(draw);
   }
+}
 
-  requestAnimationFrame(draw);
+draw();
