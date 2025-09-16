@@ -8,14 +8,15 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 // Boomerang animable
-const boomerang = { x: -500, y: 0 };
+const boomerang = { x: -500, y: 0 , rotation: 0};
 
-function dibujarBoomerang(x, y) {
+function dibujarBoomerang(x, y, rotation) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     ctx.save();
     // Traslada el sistema de coordenadas al centro + desplazamiento animado
     ctx.translate(canvas.width / 2 + x, canvas.height / 2 + y);
+    ctx.rotate(rotation);
 
     ctx.beginPath();
     let gradient = ctx.createLinearGradient(-400, 0, 50, 0);
@@ -35,30 +36,50 @@ function dibujarBoomerang(x, y) {
 }
 
 // Dibujo inicial
-dibujarBoomerang(boomerang.x, boomerang.y);
+dibujarBoomerang(boomerang.x, boomerang.y, boomerang.rotation);
 
 window.addEventListener("mousedown", function() {
-    // Animar horizontal (x)
     gsap.to(boomerang, {
-        x: canvas.width / 2,
-        duration: 4,
+        x: canvas.width / 2 + 200, // ajusta este valor para que no se salga del canvas
+        duration: 2,
         ease: "power2.inOut",
-        onUpdate: () => dibujarBoomerang(boomerang.x, boomerang.y)
+        rotation: Math.PI * 4, // gira 2 vueltas mientras se mueve
+        onUpdate: function() {
+            dibujarBoomerang(boomerang.x, boomerang.y,boomerang.rotation);
+        },
+        onComplete: function() {
+            // Regreso a la posición inicial
+            gsap.to(boomerang, {
+                x: -500, 
+                duration: 2,
+                ease: "power2.inOut",
+                 rotation: Math.PI * -4,
+                onUpdate: function() {
+                    dibujarBoomerang(boomerang.x, boomerang.y,boomerang.rotation);
+                }
+            });
+        }
     });
 
-    // Animar vertical (y) sube y baja
+    // Animar Y (sube y baja)
     gsap.to(boomerang, {
-        y: canvas.height / 2 - 100, // ajusta para que no se salga
+        y: canvas.height / 4,  // sube relativo al centro
         duration: 2,
         ease: "power2.out",
-        onUpdate: () => dibujarBoomerang(boomerang.x, boomerang.y),
-        onComplete: () => {
+        onUpdate: function() {
+            dibujarBoomerang(boomerang.x, boomerang.y,boomerang.rotation);
+        },
+        onComplete: function() {
+            // Volver al centro
             gsap.to(boomerang, {
-                y: 100,
+                y: 0,
                 duration: 2,
                 ease: "power2.in",
-                onUpdate: () => dibujarBoomerang(boomerang.x, boomerang.y)
+                onUpdate: function() {
+                    dibujarBoomerang(boomerang.x, boomerang.y,boomerang.rotation);
+                }
             });
         }
     });
 });
+
