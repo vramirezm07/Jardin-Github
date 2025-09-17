@@ -61,6 +61,7 @@ window.addEventListener("mousedown", function() {
         }
     });
 
+
     gsap.to(boomerang, {
         y: canvas.height / 4,
         duration: 2,
