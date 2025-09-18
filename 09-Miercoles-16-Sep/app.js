@@ -1,8 +1,7 @@
 console.log("Random");
 console.log(gsap);
 
-
-
+let posicionInical = true; 
 
 window.addEventListener("mousedown", function(event) {
     
@@ -10,18 +9,26 @@ window.addEventListener("mousedown", function(event) {
     const mouseY = event.clientY;
 
 
+     if (posicionInical) {
+        gsap.set(".rectangulo", {
+            x: mouseX,
+            y: mouseY
+        });
+        posicionInical = false;
+    }
+
     let px;
     if (Math.random() < 0.5) {
         px = gsap.utils.random(mouseX - 150, mouseX - gsap.utils.random(50)); 
     } else {
-               px = gsap.utils.random(mouseX + 150 , mouseX + Math.random(50)); // segundo elemento como limite en este caso nuestra pantalla
+               px = gsap.utils.random(mouseX + 150 , mouseX +gsap.utils.random(50)); // segundo elemento como limite en este caso nuestra pantalla
     }
 
     let py;
     if (Math.random() < 0.5) {
         py = gsap.utils.random(mouseY - 150, mouseY - gsap.utils.random(50)); 
     } else { 
-                py = gsap.utils.random(mouseY + 150, mouseY + Math.random(50),); // segundo elemento como limite en este caso nuestra pantalla
+                py = gsap.utils.random(mouseY + 150, mouseY + gsap.utils.random(50)); // segundo elemento como limite en este caso nuestra pantalla
     }
 
 

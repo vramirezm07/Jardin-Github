@@ -24,6 +24,9 @@ const geometry05 = new THREE.ConeGeometry(2, 2.2, 32);
 //nCylinderGeometry(radiusTop, radiusBottom, height, radialSegments);
 const geometry06 = new THREE.CylinderGeometry(0.5, 0.7, 1, 32);
 
+// Plano: ancho, largo
+const sueloGeo = new THREE.PlaneGeometry(80, 80);
+
 const materialCopa = new THREE.MeshPhongMaterial({
   flatShading: true,
   specular: "#ffffff",
@@ -34,6 +37,8 @@ const materialCopa = new THREE.MeshPhongMaterial({
 const madera = new THREE.MeshPhongMaterial(
    {flatShading: true}
 );
+
+const sueloMat = new THREE.MeshPhongMaterial({ color: 0x228B22, side: THREE.DoubleSide });
 
 const textureLoader = new THREE.TextureLoader();
 var matcapMaterial;
@@ -70,6 +75,11 @@ crearCopa(geometry04, 0.9);
 crearCopa(geometry05, 0.5);
 
 
+const suelo = new THREE.Mesh(sueloGeo, sueloMat);
+suelo.rotation.x = -Math.PI / 2; // lo acuestas para que sea "piso"
+suelo.position.set(0, -1.5, -10);
+scene.add(suelo);
+
 renderer.render(scene, camera);
 
 
@@ -85,7 +95,7 @@ const topLight = new THREE.PointLight("#2d41c3", 100, 100);
 topLight.position.y = 5;
 scene.add(topLight);
 
-const frontLight = new THREE.PointLight("#ffffff", 10, 100);
+const frontLight = new THREE.PointLight("#6d64c1ff", 10, 100);
 frontLight.position.set(-10,1,3);
 scene.add(frontLight);
 
@@ -96,7 +106,9 @@ scene.add(ambientLight);
 
 const boton = document.getElementById("cambiarcolor");
 boton.addEventListener("click", () => {
+   
+   const nuevoColor = Math.random() * 0xffffff; 
 
-  materialCopa.color.setHex(Math.random() * 0xffffff); // rojo
-
+  materialCopa.color.setHex(nuevoColor); // rojo
+   topLight.color.setHex(nuevoColor); // azul
 });
