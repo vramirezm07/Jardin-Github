@@ -80,6 +80,54 @@ suelo.rotation.x = -Math.PI / 2; // lo acuestas para que sea "piso"
 suelo.position.set(0, -1.5, -10);
 scene.add(suelo);
 
+//Luces
+const topLight = new THREE.PointLight("#2d41c3", 100, 150);
+topLight.position.y = 5;
+scene.add(topLight);
+
+const frontLight = new THREE.PointLight("#6d64c1ff", 10, 100);
+frontLight.position.set(-10,1,3);
+scene.add(frontLight);
+
+
+const rimLight = new THREE.PointLight("#0066ff", 50, 100); //LUZ TRASEA/CONTRALUZ
+rimLight.position.set(7, 3, -7);
+scene.add(rimLight);
+
+
+camera.position.set(0,0,0);
+const initialCameraPosition = camera.position.clone(); // Guardar la posición inicial de la cámara
+
+const botonZoomIn = document.getElementById("zoomIn");
+botonZoomIn.addEventListener("click", () => {
+       gsap.to(camera.position, {
+        z: -4,
+        y: 0.5,
+        duration: 2,
+        ease: "power2.inOut",
+    });
+});
+
+const botonZoomOut = document.getElementById("zoomOut");
+botonZoomOut.addEventListener("click", () => {
+        gsap.to(camera.position, {
+        y: initialCameraPosition.y,
+        z: initialCameraPosition.z,
+        duration: 2,
+        ease: "power2.inOut"
+    });
+});
+
+const boton = document.getElementById("cambiarcolor");
+boton.addEventListener("click", () => {
+   
+   const nuevoColor = Math.random() * 0xffffff; 
+
+  materialCopa.color.setHex(nuevoColor); // rojo
+   //topLight.color.setHex(nuevoColor); // azul
+});
+
+
 renderer.render(scene, camera);
 
 
@@ -91,24 +139,6 @@ function animate() {
 animate();
 
 
-const topLight = new THREE.PointLight("#2d41c3", 100, 100);
-topLight.position.y = 5;
-scene.add(topLight);
-
-const frontLight = new THREE.PointLight("#6d64c1ff", 10, 100);
-frontLight.position.set(-10,1,3);
-scene.add(frontLight);
 
 
-const ambientLight = new THREE.AmbientLight("#09249b", 0.4); // color cálido, intensidad baja
-scene.add(ambientLight);
 
-
-const boton = document.getElementById("cambiarcolor");
-boton.addEventListener("click", () => {
-   
-   const nuevoColor = Math.random() * 0xffffff; 
-
-  materialCopa.color.setHex(nuevoColor); // rojo
-   topLight.color.setHex(nuevoColor); // azul
-});
