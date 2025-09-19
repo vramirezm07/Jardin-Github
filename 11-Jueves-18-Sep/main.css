@@ -33,3 +33,40 @@ body {
     background-color: rgb(71, 85, 119);
     cursor: pointer;
 }
+
+
+#zoomIn {
+    position: absolute;
+    top: 10%;
+    left: 20px;
+    border-radius: 50px;
+    padding: 10px 20px;
+    z-index: 10;
+    color: azure;
+    background-color: rgb(47, 60, 89);
+    border: none;      /* quita el borde */
+    outline: none;     /* quita el contorno al hacer clic */
+}
+
+#zoomIn:hover {
+    background-color: rgb(71, 85, 119);
+    cursor: pointer;
+}
+
+#zoomOut {
+    position: absolute;
+    top: 17%;
+    left: 20px;
+    border-radius: 50px;
+    padding: 10px 20px;
+    z-index: 10;
+    color: azure;
+    background-color: rgb(47, 60, 89);
+    border: none;      /* quita el borde */
+    outline: none;     /* quita el contorno al hacer clic */
+}
+
+#zoomOut:hover {
+    background-color: rgb(71, 85, 119);
+    cursor: pointer;
+}
