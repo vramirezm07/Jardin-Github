@@ -13,6 +13,8 @@ scene.background = new THREE.Color(0x090028); // tu azul pino
 const camera = new THREE.PerspectiveCamera(45, window.innerWidth/window.innerHeight, 0.1, 1000);
 
 //Mesh 
+const arbol = new THREE.Group();
+scene.add(arbol);
 
 //Geometría                             /radio, altura, 32 segmentos
 const geometry01 = new THREE.ConeGeometry(1, 1, 32);
@@ -47,8 +49,7 @@ var matcapMap = textureLoader.load(
    function (texture) {
        matcapMaterial = new THREE.MeshPhongMaterial( { map: matcapMap} );
        const mesh6 = new THREE.Mesh(geometry06, matcapMaterial);
-        scene.add(mesh6);
-        mesh6.position.z = -10;
+        arbol.add(mesh6);
         mesh6.position.y = -1;
        
        // 4. Activar animación.
@@ -63,8 +64,8 @@ var matcapMap = textureLoader.load(
 const copas = [];
 function crearCopa(geo, y) {
   const mesh = new THREE.Mesh(geo, materialCopa);
-  mesh.position.set(0, y, -10);
-  scene.add(mesh);
+  mesh.position.set(0, y, 0);
+  arbol.add(mesh);
   copas.push(mesh); // guardar referencia para cambiar color después
 }
 
@@ -94,7 +95,7 @@ const rimLight = new THREE.PointLight("#0066ff", 50, 100); //LUZ TRASEA/CONTRALU
 rimLight.position.set(7, 3, -7);
 scene.add(rimLight);
 
-
+arbol.position.set(0, 0, -10);
 camera.position.set(0,0,0);
 const initialCameraPosition = camera.position.clone(); // Guardar la posición inicial de la cámara
 
@@ -125,6 +126,15 @@ boton.addEventListener("click", () => {
 
   materialCopa.color.setHex(nuevoColor); // rojo
    //topLight.color.setHex(nuevoColor); // azul
+});
+
+const botonRotarMesh = document.getElementById("rotacion");
+botonRotarMesh.addEventListener("click", () => {
+    gsap.to(arbol.rotation, {
+        y: ar.rotation.y + Math.PI * 4, // 720° = 4 radianes * PI
+        duration: 2,
+        ease: "power2.inOut"
+    });
 });
 
 
