@@ -131,7 +131,7 @@ boton.addEventListener("click", () => {
 const botonRotarMesh = document.getElementById("rotacion");
 botonRotarMesh.addEventListener("click", () => {
     gsap.to(arbol.rotation, {
-        y: ar.rotation.y + Math.PI * 4, // 720° = 4 radianes * PI
+        y: arbol.rotation.y + Math.PI * 4, // 720° = 4 radianes * PI
         duration: 2,
         ease: "power2.inOut"
     });
