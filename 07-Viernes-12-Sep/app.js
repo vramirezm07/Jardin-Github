@@ -12,7 +12,7 @@ scene.background = new THREE.Color(0x090028);
 
 // Cámara
 const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
-camera.position.set(0, 0, 500); // cámara alejada mirando al centro (0,0,0)
+camera.position.set(0, 0, 50); // cámara alejada mirando al centro (0,0,0)
 
 // Render
 const renderer = new THREE.WebGLRenderer({ canvas: canvas });
@@ -28,7 +28,7 @@ scene.add(directionalLight);
 
 
 // Geometría (bolita)
-const geometry = new THREE.SphereGeometry(50, 32, 32); // radio=50
+const geometry = new THREE.TorusKnotGeometry( 7, 3, 8, 7 ); 
 const material = new THREE.MeshPhongMaterial({
    flatShading: true,
    specular: 0xffffff,
