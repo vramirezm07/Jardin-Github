@@ -26,13 +26,14 @@ const directionalLight = new THREE.DirectionalLight(0xffffff, 1); // luz direcci
 directionalLight.position.set(100, 100, 100);
 scene.add(directionalLight);
 
+
 // Geometría (bolita)
 const geometry = new THREE.SphereGeometry(50, 32, 32); // radio=50
 const material = new THREE.MeshPhongMaterial({
    flatShading: true,
    specular: 0xffffff,
    shininess: 100,
-   color: "#ffa72c"
+   color: "#762cff"
 });
 
 const sphere = new THREE.Mesh(geometry, material);
@@ -49,3 +50,18 @@ function animate() {
 }
 animate();
 
+// Manejar el resize de la ventana
+window.addEventListener('resize', () => {
+   // Cambiar color aleatorio
+   const newColor = "#" + Math.floor(Math.random() * 16777215).toString(16);
+   material.color.set(newColor);
+
+   // Ajustar tamaño del canvas y render
+   canvas.width = window.innerWidth;
+   canvas.height = window.innerHeight; 
+   renderer.setSize(window.innerWidth, window.innerHeight);
+
+   // Actualizar cámara
+   camera.aspect = window.innerWidth / window.innerHeight;
+   camera.updateProjectionMatrix();
+});
