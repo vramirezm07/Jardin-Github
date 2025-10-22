@@ -27,7 +27,31 @@ directionalLight.position.set(100, 100, 100);
 scene.add(directionalLight);
 
 
-// Geometría (bolita)
+
+// Crear objetos en círculo
+function crearObjetosEnCirculo(cantidad, radio, geometria, material) {
+    const objetos = [];
+    
+    for(let i = 0; i < cantidad; i++) {
+        // Calcula la posición en círculo
+        const angulo = (i / cantidad) * Math.PI * 2;
+        const x = Math.cos(angulo) * radio;
+        const y = Math.random() * 10 - 5; // posición Y aleatoria para efecto flotante
+        const z = Math.sin(angulo) * radio;
+        
+        // Crea el objeto
+        const sphere = new THREE.Mesh(geometria, material);
+        sphere.position.set(x, y, z);
+        
+        // Guarda referencia para animación
+        sphere.userData.velocidadY = Math.random() * 0.02 - 0.01; // velocidad aleatoria
+        objetos.push(sphere);
+      sphere.add(sphere);
+    }
+    
+    return objetos;
+}
+
 const geometry = new THREE.TorusKnotGeometry( 7, 3, 8, 7 ); 
 const material = new THREE.MeshPhongMaterial({
    flatShading: true,
@@ -35,17 +59,23 @@ const material = new THREE.MeshPhongMaterial({
    shininess: 100,
    color: "#762cff"
 });
+// Usando tu geometría existente
+const objetosFlotantes = crearObjetosEnCirculo(12, 20, geometry, material01);
 
-const sphere = new THREE.Mesh(geometry, material);
-scene.add(sphere);
-
-// Animación
+// Función de animación
 function animate() {
    requestAnimationFrame(animate);
 
-   // Rotación ligera para que se vea con volumen
-   sphere.rotation.y += 0.07;
-
+   // Anima los objetos
+   objetosFlotantes.forEach(objeto => {
+       objeto.position.y += objeto.userData.velocidadY;
+       
+       // Invierte dirección si llega a límites
+       if(objeto.position.y > 5 || objeto.position.y < -5) {
+           objeto.userData.velocidadY *= -1;
+       }
+   });
+   
    renderer.render(scene, camera);
 }
 animate();
