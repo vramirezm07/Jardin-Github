@@ -34,21 +34,19 @@ const material = new THREE.MeshPhongMaterial({
    color: "#762cff"
 });
 
-
-// Función para crear objetos en círculo
+//Crear un arreglo de mesh en círculo
 function crearObjetosEnCirculo(cantidad, radio) {
     const objetos = [];
     
     for(let i = 0; i < cantidad; i++) {
-        const angulo = (i / cantidad) * Math.PI * 2;
-        const x = Math.cos(angulo) * radio;
-        const y = Math.random() * 10 - 5;
+        const angulo = (i / cantidad) * Math.PI * 2; // para que mis meshes se dispongan en círculo en partes iguales
+        const x = Math.cos(angulo) * radio; 
+        const y = Math.random() * 10 - 8; // tener una altura aleatoria para más dinamismo
         const z = Math.sin(angulo) * radio;
         
         // Crear nuevo mesh para cada objeto
         const mesh = new THREE.Mesh(geometry, material);
         mesh.position.set(x, y, z);
-        mesh.userData.velocidadY = Math.random() * 0.02 - 0.01;
         objetos.push(mesh);
         scene.add(mesh);
     }
@@ -57,17 +55,19 @@ function crearObjetosEnCirculo(cantidad, radio) {
 }
 
 // Crear objetos
-const objetosFlotantes = crearObjetosEnCirculo(12, 20);
+const meshFlotante = crearObjetosEnCirculo(12, 20);
+
+let time = 0;
+const amplitude = 2; // Qué tanto suben y bajan (altura maxima)
+const frequency = 0.002; // Velocidad
 
 // Animación
 function animate() {
     requestAnimationFrame(animate);
     
-    objetosFlotantes.forEach(objeto => {
-        objeto.position.y += objeto.userData.velocidadY;
-        if(objeto.position.y > 5 || objeto.position.y < -5) {
-            objeto.userData.velocidadY *= -1;
-        }
+    time += 1;
+    meshFlotante.forEach(objeto => {
+        objeto.position.y = amplitude * Math.sin(time * frequency + objeto.position.x); // Movimiento oscilatorio con Math.sin()
     });
     
     renderer.render(scene, camera);
