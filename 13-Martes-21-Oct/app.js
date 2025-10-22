@@ -26,60 +26,54 @@ const directionalLight = new THREE.DirectionalLight(0xffffff, 1); // luz direcci
 directionalLight.position.set(100, 100, 100);
 scene.add(directionalLight);
 
-
-
-// Crear objetos en círculo
-function crearObjetosEnCirculo(cantidad, radio, geometria, material) {
-    const objetos = [];
-    
-    for(let i = 0; i < cantidad; i++) {
-        // Calcula la posición en círculo
-        const angulo = (i / cantidad) * Math.PI * 2;
-        const x = Math.cos(angulo) * radio;
-        const y = Math.random() * 10 - 5; // posición Y aleatoria para efecto flotante
-        const z = Math.sin(angulo) * radio;
-        
-        // Crea el objeto
-        const sphere = new THREE.Mesh(geometria, material);
-        sphere.position.set(x, y, z);
-        
-        // Guarda referencia para animación
-        sphere.userData.velocidadY = Math.random() * 0.02 - 0.01; // velocidad aleatoria
-        objetos.push(sphere);
-      sphere.add(sphere);
-    }
-    
-    return objetos;
-}
-
-const geometry = new THREE.TorusKnotGeometry( 7, 3, 8, 7 ); 
+const geometry = new THREE.TorusKnotGeometry( 1, 3, 8, 7 ); 
 const material = new THREE.MeshPhongMaterial({
    flatShading: true,
    specular: 0xffffff,
    shininess: 100,
    color: "#762cff"
 });
-// Usando tu geometría existente
-const objetosFlotantes = crearObjetosEnCirculo(12, 20, geometry, material01);
 
-// Función de animación
-function animate() {
-   requestAnimationFrame(animate);
 
-   // Anima los objetos
-   objetosFlotantes.forEach(objeto => {
-       objeto.position.y += objeto.userData.velocidadY;
-       
-       // Invierte dirección si llega a límites
-       if(objeto.position.y > 5 || objeto.position.y < -5) {
-           objeto.userData.velocidadY *= -1;
-       }
-   });
-   
-   renderer.render(scene, camera);
+// Función para crear objetos en círculo
+function crearObjetosEnCirculo(cantidad, radio) {
+    const objetos = [];
+    
+    for(let i = 0; i < cantidad; i++) {
+        const angulo = (i / cantidad) * Math.PI * 2;
+        const x = Math.cos(angulo) * radio;
+        const y = Math.random() * 10 - 5;
+        const z = Math.sin(angulo) * radio;
+        
+        // Crear nuevo mesh para cada objeto
+        const mesh = new THREE.Mesh(geometry, material);
+        mesh.position.set(x, y, z);
+        mesh.userData.velocidadY = Math.random() * 0.02 - 0.01;
+        objetos.push(mesh);
+        scene.add(mesh);
+    }
+    
+    return objetos;
 }
-animate();
 
+// Crear objetos
+const objetosFlotantes = crearObjetosEnCirculo(12, 20);
+
+// Animación
+function animate() {
+    requestAnimationFrame(animate);
+    
+    objetosFlotantes.forEach(objeto => {
+        objeto.position.y += objeto.userData.velocidadY;
+        if(objeto.position.y > 5 || objeto.position.y < -5) {
+            objeto.userData.velocidadY *= -1;
+        }
+    });
+    
+    renderer.render(scene, camera);
+}
+
+animate();
 // Manejar el resize de la ventana
 window.addEventListener('resize', () => {
    // Cambiar color aleatorio
