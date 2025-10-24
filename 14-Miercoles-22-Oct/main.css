@@ -66,29 +66,35 @@ main {
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
-    padding: .6rem var(--site--margin)
+    padding: .4rem var(--site--margin);
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* centra .design horizontalmente */
 }
 
 div {
     width: 100%;
-    height: 8vh;    
     display: flex;
     align-items: center;      
-    justify-content: space-between;  
 }
-
 .about {
-    width:100%
-  
+    width: 100vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5%;
+    box-sizing: border-box;
 }
 
-section.design {
+
+
+div.design {
     width:100%;
-    margin-top: 5vh;
+    
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 0.5rem;
+  
 }
 
 footer {
