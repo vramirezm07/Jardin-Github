@@ -80,3 +80,58 @@ canvas {
   font-weight: bold;
   font-size: 14px;
 }
+
+.hero-texts {
+    position: absolute;
+    bottom: 40px;                         /* distancia desde abajo */
+    left: 8%;              /* 80px = ancho de .navbar + 24px de separación */
+    color: white;
+    text-align: left;                     /* alinea el texto a la izquierda */
+    z-index: 5;
+    padding: 0 2%;
+    max-width: calc(100vw - (80px + 48px)); /* evita que el texto salga fuera de la ventana */
+    pointer-events: auto;
+}
+
+.canal-text {
+position: relative;
+padding: 0 10%;
+margin: 0;
+margin-top: 0;
+}
+
+.canal-text h1 {
+  font-size: 20em;
+  letter-spacing: 8px;
+  margin: 0;
+}
+
+.hero-texts h2 {
+  font-size: 1.2em;
+  letter-spacing: 3px;
+  opacity: 0.8;
+}
+
+.hero-texts p {
+  font-size: 0.3em;
+  letter-spacing: 2px;
+  opacity: 0.6;
+  margin-top: 20px;
+}
+
+.circle-button {
+  position: fixed;
+  bottom: 5%;   /* distancia desde el borde inferior */
+  right: 3%;    /* distancia desde el borde derecho */
+  display: inline-block;
+  width: 9%;    
+  aspect-ratio: 1 / 1; 
+  border-radius: 50%;
+  text-align: center;
+  text-decoration: none;
+  font-size: 1vw;
+  z-index: 20;
+  transition: all 0.3s ease;
+  background-color: rgb(255, 38, 0);
+  
+}
