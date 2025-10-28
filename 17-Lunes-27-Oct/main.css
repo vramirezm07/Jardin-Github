@@ -23,50 +23,60 @@ canvas {
 /* Menú lateral */
 .navbar {
     color: thistle;
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 80px; /* más angosto para que parezca una barra */
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 80px; /* ancho de la barra */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+/* Contenido del menú: columna vertical, centrada dentro de la barra */
+.navbar nav {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  z-index: 10;
+  gap: 30px;
+  height: 100%;
+  transform: none; /* eliminar rotaciones previas */
 }
 
-/* Contenido del menú rotado */
-.navbar nav {
-  transform: rotate(-90deg); /* gira todo el menú */
-  transform-origin: left top;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 60px; /* espacio entre palabras */
-}
-
+/* Lista vertical -NO estilo */
 .navbar ul {
   display: flex;
-  gap: 40px;
+  flex-direction: column;
+  gap: 20px;
   list-style: none;
   padding: 0;
   margin: 0;
+  align-items: center;
 }
 
-.navbar a {
-  text-decoration: none;
+/* Texto en vertical: escribe de arriba hacia abajo con letras "normales" */
+.navbar nav a,
+.navbar nav li a {
+  writing-mode: vertical-rl;    /* hace que el texto sea vertical (top → bottom) */
+  text-orientation: mixed;      /* mantiene las letras en orientación natural */
+  white-space: nowrap;
   color: white;
-  font-size: 14px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  opacity: 0.8;
+  text-decoration: none;
+  font-size: 12px;
+  letter-spacing: 2px;
+  opacity: 0.9;
   transition: opacity 0.3s ease;
 }
 
+/* Si quieres que la lectura vaya en sentido contrario (de abajo hacia arriba),
+   quita el rotate(180deg) o cámbialo. Por ahora lo dejo sin rotar. */
 .navbar a:hover {
   opacity: 1;
 }
 
 .amsterdam {
   font-weight: bold;
-  font-size: 18px;
+  font-size: 14px;
 }
