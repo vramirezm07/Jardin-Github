@@ -1,4 +1,6 @@
 
+console.log(gsap);
+
 //Menu inteactivo
 document.addEventListener('DOMContentLoaded', function() {
     const menuBoton = document.querySelector('.menu-boton');
@@ -18,3 +20,4 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
