@@ -31,3 +31,66 @@ header p {
     font-size: 1em;
     
 }
+
+
+footer {
+    position: relative; 
+     align-items: center;
+    height: 20%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.footer-up{
+    justify-content: left;
+    align-content: left;
+    align-items: left ;
+}
+
+.footer-end{
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+}
+.title-footer{
+    width: 100%;
+    padding-right: 2rem;
+}
+
+h1 {
+    font-family: neue-haas-grotesk-display-pro, sans-serif;
+    font-style: bold;
+    font-weight: 450;
+    font-size: 4.5em;
+}
+
+.text-1 {
+    width: 45%;
+    word-break: break-word;     /* permite que las palabras se corten */
+    padding-right: 2rem;        
+}
+
+.text-1 .break-word {
+    display: inline-block;     
+}
+
+.text-2 {
+    width: 45%;
+    word-break: break-word;    
+    padding-right: 2rem;        
+}
+
+.text-2 .break-word {
+    display: inline-block;      
+}
+
+.text-3 {
+    width: 45%;
+    word-break: break-word;    
+    padding-right: 3rem;        
+}
+
+.text-3 .break-word {
+    display: inline-block;      
+}
