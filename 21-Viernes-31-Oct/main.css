@@ -5,16 +5,17 @@
 }
 
 body {
-  font-family: "Onest", sans-serif;
-  background: linear-gradient(135deg, #190202, #ea3333, #bd09b7, #f97316);
-  background-size: 400% 400%;
-  animation: gradientMove 15s ease infinite;
-  color: white;
-  min-height: 100vh;
+    min-height: 100vh;
   overflow-x: hidden;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  font-family: "futura", sans-serif;
+  background: linear-gradient(135deg, #190202, #ea3333, #bd09b7, #f97316);
+  background-size: 400% 400%;
+  animation: gradientMove 15s ease infinite;
+  color: white;
+
 }
 
 
