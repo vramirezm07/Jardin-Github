@@ -12,3 +12,81 @@ body {
     background-color: #ffffff;
 }
 
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 60px;
+}
+
+.nav-left a {
+  margin-right: 30px;
+  text-decoration: none;
+  color: #000;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.icon {
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  padding: 8px 10px;
+  background-color: white;
+  cursor: pointer;
+  margin-left: 10px;
+  font-size: 16px;
+}
+
+.hero {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.background-text {
+  position: absolute;
+  font-size: 15vw;
+  font-weight: 900;
+  color: #3f65ff;
+  opacity: 1;
+  z-index: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
+}
+
+.image-container {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.centro-imagen {
+  width: 280px;
+  transform: rotate(-10deg);
+  filter: drop-shadow(0 10px 20px rgba(0,0,0,0.2));
+}
+
+.image-container::before {
+  content: "";
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(255,255,150,0.7), transparent 70%);
+  border-radius: 50%;
+  z-index: -1;
+}
+
+.caption {
+  margin-top: 40px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #111;
+}
