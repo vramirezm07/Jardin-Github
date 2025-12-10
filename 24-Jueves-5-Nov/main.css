@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;500&display=swap');
 
 * {
   margin: 0;
@@ -17,7 +16,18 @@ body {
   align-items: center;
 }
 
-
+/* Cursor circular */
+.mouse-follower {
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;  
+  width: 15px;
+  height: 15px;
+  border: 1px solid #aaa;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s ease-out;
+  z-index: 1000;
+}
 
 .photo-container {
   width: 260px;
@@ -44,7 +54,7 @@ body {
 }
 
 .hero-headline {
-  font-family: 'Playfair Display', serif;
+  font-family: 'funnel-sans', sans-serif;
   font-size: 2rem;
   line-height: 1.3;
   margin: 1rem 0;
@@ -65,21 +75,3 @@ body {
   background: #ccc;
 }
 
-.bottom-note {
-  margin-top: 2rem;
-  font-size: 0.7rem;
-  opacity: 0.5;
-}
-
-/* Cursor circular */
-.mouse-follower {
-  width: 25px;
-  height: 25px;
-  border: 1px solid #aaa;
-  border-radius: 50%;
-  position: fixed;
-  pointer-events: none;
-  transform: translate(-50%, -50%);
-  transition: transform 0.1s ease-out;
-  z-index: 1000;
-}
