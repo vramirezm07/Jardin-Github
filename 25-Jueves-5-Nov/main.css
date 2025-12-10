@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Onest:wght@300;500;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Onest', sans-serif;
+  background-color: #fff;
+  color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  flex-direction: column;
+}
+
+.main-wrapper {
+  text-align: center;
+}
+
+.photo-display {
+  margin-bottom: 3rem;
+}
+
+.photo-display img {
+  width: 200px;
+  height: auto;
+  object-fit: cover;
+  border-left: 8px solid #f5b7b1;
+  transition: opacity 0.5s ease;
+}
+
+.gallery-menu {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  width: 80%;
+  margin: 0 auto;
+  font-size: 2.8rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.gallery-menu span {
+  color: #d3d3d3;
+  cursor: pointer;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.gallery-menu span sup {
+  font-weight: 300;
+  font-style: italic;
+  font-size: 1.3rem;
+}
+
+.gallery-menu span.selected {
+  color: #000;
+  transform: scale(1.05);
+}
